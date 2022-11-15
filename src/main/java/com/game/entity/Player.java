@@ -1,23 +1,42 @@
 package com.game.entity;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
-
+@Entity
+@Table(schema = "rpg", name = "player")
+@NamedQuery(name = "Count_Of_Player", query = "select count(p) from Player p")
 public class Player {
+    @Id
+    @SequenceGenerator(name = "pet_seq",
+            sequenceName = "pet_sequence",
+            initialValue = 41, allocationSize = 80)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
+    @Column(nullable = false)
     private Long id;
 
+    @Column(length = 12, nullable = false)
     private String name;
 
+    @Column(length = 30, nullable = false)
     private String title;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
     private Race race;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
     private Profession profession;
 
+    @Column(nullable = false)
     private Date birthday;
 
+    @Column(nullable = false)
     private Boolean banned;
 
+    @Column(nullable = false)
     private Integer level;
 
     public Player() {
